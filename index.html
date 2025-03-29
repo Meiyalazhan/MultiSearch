@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<!-- 
+		multi-search - Bulk search automation tool
+		Copyright (C) 2024 [Meiyalazhan]
+		
+		This program is free software: you can redistribute it and/or modify
+		it under the terms of the GNU General Public License as published by
+		the Free Software Foundation, either version 3 of the License, or
+		(at your option) any later version.
+		
+		This program is distributed in the hope that it will be useful,
+		but WITHOUT ANY WARRANTY; without even the implied warranty of
+		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+		GNU General Public License for more details.
+		
+		You should have received a copy of the GNU General Public License
+		along with this program.  If not, see <https://www.gnu.org/licenses/>.
+	-->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MultiSearch</title>
+    <link
+        href="https://lh3.googleusercontent.com/ZO6vXpeVVNS9xDE2J097bcBeBIxjuV9DEgAEbwA1rk4r--jzACu-LVeo6Wp0FFlX6IROc9pm2030dDGG1xicwZsM0Vg=s60"
+        rel="icon">
+    <style>
+        @import url("https://fonts.googleapis.com/css?family=Poppins:300,400,600,700");
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Poppins", sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .heading {
+            font-size: 24px;
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+
+        .infoBox {
+            display: flex;
+            margin-bottom: 15px;
+        }
+
+        .info {
+            min-width: 50%;
+            border: 1px solid transparent;
+        }
+
+        .info p {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .info input {
+            color: black;
+            background: #ddd;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 8px;
+            font-size: 14px;
+            text-align: center;
+            transition: border-color 0.3s ease-in-out;
+        }
+
+        .info input:focus {
+            border-color: #007bff;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+        }
+
+        .inputBox {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 200px;
+            border-radius: 5px;
+            padding: 10px;
+            color: black;
+            background: #ddd;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            resize: vertical;
+            transition: 0.5s;
+        }
+
+        textarea:focus {
+            border-color: #007bff;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+        }
+
+        .searchEngine {
+            min-width: 70%;
+            margin-top: 10px;
+        }
+
+        .searchEngine fieldset {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 30px;
+            margin-bottom: 15px;
+        }
+
+        .searchEngine div {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .btnContainer {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .btn {
+            border: none;
+            border-radius: 5px;
+            padding: 12px 18px;
+            font-size: 16px;
+            cursor: pointer;
+            color: black;
+            transition: 0.15s ease-in-out;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            color: white;
+        }
+
+        .Charbtn {
+            padding: 5px 18px;
+            background-color: #0d6efd;
+        }
+
+        .clearbtn {
+            background-color: #6c757d;
+        }
+
+        .stopbtn {
+            background-color: #b02a37;
+        }
+
+        .searchbtn {
+            background-color: #198754;
+        }
+
+        .btn span {
+            font-size: 10px;
+        }
+
+
+        .form-range {
+            width: 80%;
+            height: 6px;
+            background: #ddd;
+            border-radius: 5px;
+            outline: none;
+            appearance: none;
+            margin-top: 7px;
+            cursor: pointer;
+        }
+
+        .form-range::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 6px;
+            background: #ddd;
+            border-radius: 5px;
+        }
+
+        .form-range::-moz-range-track {
+            width: 100%;
+            height: 6px;
+            background: #ddd;
+            border-radius: 5px;
+        }
+
+        .form-range::-webkit-slider-thumb {
+            width: 14px;
+            height: 14px;
+            background: #0d6efd;
+            border-radius: 50%;
+            border: 2px solid white;
+            appearance: none;
+            margin-top: -4px;
+            transition: 0.2s;
+        }
+
+        .form-range::-moz-range-thumb {
+            width: 14px;
+            height: 14px;
+            background: #0d6efd;
+            border-radius: 50%;
+            border: 2px solid white;
+            appearance: none;
+            transition: 0.2s;
+        }
+
+        .form-range:hover::-webkit-slider-thumb {
+            background: #0b5ed7;
+        }
+
+        .form-range:active::-webkit-slider-thumb {
+            transform: scale(1.2);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="heading">
+            <h2>MultiSearch</h2>
+			<p style="font-size:15px">Automate multiple searches across different engines</p>
+        </div>
+        <div class="infoBox">
+            <div class="info">
+                <label for="site">Enter a Specific site to search (Optional):</label>
+                <input id="site" type="text" placeholder="e.g., researchgate.net" />
+            </div>
+            <div class="info">
+                <label for="delayTime">Set time delay to search <br>(default: 3s): <span id="openDelayValue" aria-live="polite">3</span>
+                <input type="range" class="form-range" id="delayTime" min="0" max="120" step="0.5" value="3">
+            </div>
+        </div>
+        <div class="inputBox">
+            <textarea id="input" placeholder="Type (or paste) the words here, one per line..." ></textarea>
+            <div class="searchEngine">
+                <fieldset>
+                    <legend align="left">Select Search Engine</legend>
+                    <div>
+                        <label><input type="checkbox" value="google" class="checkBox" checked> Google</label>
+                        <label><input type="checkbox" value="scholar" class="checkBox"> Google Scholar</label>
+                        <label><input type="checkbox" value="bing" class="checkBox"> Bing</label>
+                        <label><input type="checkbox" value="youtube" class="checkBox"> Youtube</label>
+                    </div>
+                    <div>
+                        <label><input type="checkbox" value="duckduckgo" class="checkBox"> DuckDuckGo</label>
+                        <label><input type="checkbox" value="yahoo" class="checkBox"> Yahoo!</label>
+                        <label><input type="checkbox" value="amazon" class="checkBox"> Amazon</label>
+                        <label><input type="checkbox" value="wikipedia" class="checkBox"> Wikipedia</label>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="btnContainer">
+                <button class="btn Charbtn" onclick="ClearNumAndSymbol()">Remove Extra<br><span>(Numbers &
+                        Symbols)</span></button>
+                <button class="btn clearbtn" onclick="Clear()">Clear</button>
+                <button class="btn stopbtn" onclick="stopSearch()">Stop Search</button>
+                <button class="btn searchbtn" onclick="GoogleSearch()">Search</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        const openDelayValueLbl = document.querySelector("#openDelayValue");
+        const openDelayRangeSelector = document.querySelector("#delayTime");
+        openDelayRangeSelector.addEventListener('input', () => {
+            openDelayValueLbl.innerHTML = openDelayRangeSelector.value;
+        });
+
+
+        let boxes = document.querySelectorAll('.checkBox');
+        boxes.forEach(checkbox => {
+            checkbox.addEventListener('change', function () {
+                boxes.forEach(cb => {
+                    if (cb !== this) cb.checked = false;
+                });
+            });
+        });
+
+        function Clear() {
+            document.getElementById('input').value = "";
+        }
+
+        const URLs = {
+            google: `https://www.google.com/search?q=`,
+            scholar: `https://scholar.google.com/scholar?q=`,
+            bing: `https://www.bing.com/search?q=`,
+            youtube: `https://www.youtube.com/results?search_query=`,
+            duckduckgo: `https://duckduckgo.com/?q=`,
+            yahoo: `https://search.yahoo.com/search?p=`,
+            amazon: `https://www.amazon.com/s?k=`,
+            wikipedia: `https://en.wikipedia.org/wiki/Special:Search?search=`
+        };
+
+        function ClearNumAndSymbol() {
+            document.getElementById('input').value = document.getElementById('input').value.replace(/[^a-zA-Z\s]/g, "");
+        }
+
+        let stopped = false;
+        let timeoutIds = [];
+
+        function GoogleSearch() {
+            stopped = false;
+            timeoutIds = [];
+
+            let input = document.getElementById("input").value;
+            let searches = input.split("\n").map((name) => name.trim()).filter((name) => name);
+            let site = document.getElementById("site").value.trim();
+
+            let time = Number(document.getElementById("delayTime").value) || 3000;
+
+            let selectedCheckbox = document.querySelectorAll('.checkBox:checked');
+            let checkBoxValue = Array.from(selectedCheckbox).map(cb => cb.value);
+            const urlPattern = /^(https?:\/\/)?(www\.)?[\w\-]+(\.[a-z]{2,})(\/\S*)?$/i;
+
+            searches.forEach((search, index) => {
+                let timeoutId = setTimeout(() => {
+                    if (stopped) return;
+                    let searchUrl;
+                    if (!urlPattern.test(search)) {
+                        console.log(urlPattern.test(search));
+                        let query = site ? `${search} site:${site}` : search;
+                        searchUrl = `${URLs[checkBoxValue]}${encodeURIComponent(query)}`;
+                    } else {
+                        searchUrl = search.startsWith("http") ? search : `https://${search}`;
+                    }
+                    window.open(searchUrl, "_blank", "noopener,noreferrer");
+                }, index * time);
+
+                timeoutIds.push(timeoutId);
+            });
+        }
+        function stopSearch() {
+            stopped = true;
+            timeoutIds.forEach(id => clearTimeout(id));
+            timeoutIds = [];
+        }
+    </script>
+</body>
+
+</html>
